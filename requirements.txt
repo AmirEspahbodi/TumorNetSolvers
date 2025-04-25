@@ -21,4 +21,4 @@ tqdm==4.66.5
 wandb==0.18.0
 pydantic==2.11.3
 pydantic-settings==2.9.1
-dataset==1.6.2
+datasets==3.5.0
