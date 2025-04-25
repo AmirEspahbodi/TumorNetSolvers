@@ -95,7 +95,7 @@ def folds_string_to_tuple(folds_string: str):
     return res
 
 
-def check_workers_alive_and_busy(export_pool: Pool, worker_list: List, results_list: List, allowed_num_queued: int = 0):
+def check_workers_alive_and_busy(export_pool, worker_list: List, results_list: List, allowed_num_queued: int = 0):
     """
 
     returns True if the number of results that are not ready is greater than the number of available workers + allowed_num_queued

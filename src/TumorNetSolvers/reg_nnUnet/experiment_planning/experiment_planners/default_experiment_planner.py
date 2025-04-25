@@ -12,17 +12,18 @@ from batchgenerators.utilities.file_and_folder_operations import load_json, join
 from dynamic_network_architectures.architectures.unet import PlainConvUNet
 from dynamic_network_architectures.building_blocks.helper import convert_dim_to_conv_op, get_matching_instancenorm
 
-from reg_nnUnet.configuration import ANISO_THRESHOLD
-from reg_nnUnet.experiment_planning.experiment_planners.network_topology import get_pool_and_conv_props
-from reg_nnUnet.imageio.reader_writer_registry import determine_reader_writer_from_dataset_json
-from reg_nnUnet.paths import nnUNet_raw, nnUNet_preprocessed
-from reg_nnUnet.preprocessing.normalization.map_channel_name_to_normalization import get_normalization_scheme
-from reg_nnUnet.preprocessing.resampling.default_resampling import resample_data_or_seg_to_shape, compute_new_shape
-from reg_nnUnet.utilities.dataset_name_id_conversion import maybe_convert_to_dataset_name
-from reg_nnUnet.utilities.default_n_proc_DA import get_allowed_n_proc_DA
-from reg_nnUnet.utilities.get_network_from_plans import get_network_from_plans
-from reg_nnUnet.utilities.json_export import recursive_fix_for_json_export
-from reg_nnUnet.utilities.utils import get_filenames_of_train_images_and_targets
+from src.TumorNetSolvers.reg_nnUnet.configuration import ANISO_THRESHOLD
+from src.TumorNetSolvers.reg_nnUnet.experiment_planning.experiment_planners.network_topology import get_pool_and_conv_props
+from src.TumorNetSolvers.reg_nnUnet.imageio.reader_writer_registry import determine_reader_writer_from_dataset_json
+from src.TumorNetSolvers.reg_nnUnet.paths import nnUNet_raw, nnUNet_preprocessed
+from src.TumorNetSolvers.reg_nnUnet.preprocessing.normalization.map_channel_name_to_normalization import get_normalization_scheme
+from src.TumorNetSolvers.reg_nnUnet.preprocessing.resampling.default_resampling import resample_data_or_seg_to_shape, compute_new_shape
+from src.TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import maybe_convert_to_dataset_name
+from src.TumorNetSolvers.reg_nnUnet.utilities.default_n_proc_DA import get_allowed_n_proc_DA
+# from reg_nnUnet.utilities.get_network_from_plans import get_network_from_plans
+from src.TumorNetSolvers.reg_nnUnet.training.nnUNetTrainer.net import get_network_from_plans_new
+from src.TumorNetSolvers.reg_nnUnet.utilities.json_export import recursive_fix_for_json_export
+from src.TumorNetSolvers.reg_nnUnet.utilities.utils import get_filenames_of_train_images_and_targets
 
 
 class ExperimentPlanner(object):
@@ -107,7 +108,7 @@ class ExperimentPlanner(object):
         a = torch.get_num_threads()
         torch.set_num_threads(get_allowed_n_proc_DA())
         # print(f'instantiating network, patch size {patch_size}, pool op: {arch_kwargs["strides"]}')
-        net = get_network_from_plans(arch_class_name, arch_kwargs, arch_kwargs_req_import, input_channels,
+        net = get_network_from_plans_new(arch_class_name, arch_kwargs, arch_kwargs_req_import, input_channels,
                                      output_channels,
                                      allow_init=False)
         ret = net.compute_conv_feature_map_size(patch_size)

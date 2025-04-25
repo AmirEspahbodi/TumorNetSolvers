@@ -6,7 +6,7 @@ import pydoc
 import warnings
 from typing import Union
 
-from reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
+from src.TumorNetSolvers.reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
 from batchgenerators.utilities.file_and_folder_operations import join
 
 #this function is slightly modified from nnUnet.utilities.get_network_from_plans
@@ -176,7 +176,7 @@ class PlainConvUNetNew(nn.Module):
                  input_channels: int,
                  n_stages: int,
                  features_per_stage: Union[int, List[int], Tuple[int, ...]],
-                 conv_op: Type[nn.ConvNd],
+                 conv_op: Type[nn.Conv1d],
                  kernel_sizes: Union[int, List[int], Tuple[int, ...]],
                  strides: Union[int, List[int], Tuple[int, ...]],
                  n_conv_per_stage: Union[int, List[int], Tuple[int, ...]],

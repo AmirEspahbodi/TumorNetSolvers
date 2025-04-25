@@ -40,9 +40,9 @@ import nibabel as nib
 import wandb
 
 from torch.utils.data import DataLoader
-from TumorNetSolvers.inference.inference_manager import InferenceManager
-from TumorNetSolvers.inference.inference_utils import CustomDataset, get_settings_and_file_paths
-from TumorNetSolvers.utils.metrics import compute_dice_score
+from src.TumorNetSolvers.inference.inference_manager import InferenceManager
+from src.TumorNetSolvers.inference.inference_utils import CustomDataset, get_settings_and_file_paths
+from src.TumorNetSolvers.utils.metrics import compute_dice_score
 
 # Setting environment variables
 nnUNet_preprocessed = os.environ.get('nnUNet_preprocessed')

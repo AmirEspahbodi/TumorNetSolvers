@@ -7,16 +7,16 @@ from typing import List, Type, Optional, Tuple, Union
 
 from batchgenerators.utilities.file_and_folder_operations import join, maybe_mkdir_p, load_json
 
-import reg_nnUnet
-from reg_nnUnet.configuration import default_num_processes
-from reg_nnUnet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
-from reg_nnUnet.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
-from reg_nnUnet.experiment_planning.verify_dataset_integrity import verify_dataset_integrity
-from reg_nnUnet.paths import nnUNet_raw, nnUNet_preprocessed
-from reg_nnUnet.utilities.dataset_name_id_conversion import convert_id_to_dataset_name
-from reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
-from reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
-from reg_nnUnet.utilities.utils import get_filenames_of_train_images_and_targets
+import src.TumorNetSolvers.reg_nnUnet
+from src.TumorNetSolvers.reg_nnUnet.configuration import default_num_processes
+from src.TumorNetSolvers.reg_nnUnet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
+from src.TumorNetSolvers.reg_nnUnet.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
+from src.TumorNetSolvers.reg_nnUnet.experiment_planning.verify_dataset_integrity import verify_dataset_integrity
+from src.TumorNetSolvers.reg_nnUnet.paths import nnUNet_raw, nnUNet_preprocessed
+from src.TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import convert_id_to_dataset_name
+from src.TumorNetSolvers.reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
+from src.TumorNetSolvers.reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
+from src.TumorNetSolvers.reg_nnUnet.utilities.utils import get_filenames_of_train_images_and_targets
 
 
 def extract_fingerprint_dataset(dataset_id: int,
@@ -44,7 +44,7 @@ def extract_fingerprints(dataset_ids: List[int], fingerprint_extractor_class_nam
     clean = False will not actually run this. This is just a switch for use with reg_nnUnet_plan_and_preprocess where
     we don't want to rerun fingerprint extraction every time.
     """
-    fingerprint_extractor_class = recursive_find_python_class(join(reg_nnUnet.__path__[0], "experiment_planning"),
+    fingerprint_extractor_class = recursive_find_python_class(join(src.TumorNetSolvers.reg_nnUnet.__path__[0], "experiment_planning"),
                                                               fingerprint_extractor_class_name,
                                                               current_module="reg_nnUnet.experiment_planning")
     for d in dataset_ids:
@@ -90,7 +90,7 @@ def plan_experiments(dataset_ids: List[int], experiment_planner_class_name: str 
               "Please consider using those instead! "
               "Read more here: https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/resenc_presets.md"
               "\n############################\n")
-    experiment_planner = recursive_find_python_class(join(reg_nnUnet.__path__[0], "experiment_planning"),
+    experiment_planner = recursive_find_python_class(join(src.TumorNetSolvers.reg_nnUnet.__path__[0], "experiment_planning"),
                                                      experiment_planner_class_name,
                                                      current_module="reg_nnUnet.experiment_planning")
     plans_identifier = None
@@ -133,15 +133,31 @@ def preprocess_dataset2(dataset_id: int,
 
     # copy the gt to a folder in the nnUNet_preprocessed so that we can do validation even if the raw data is no
     # longer there (useful for compute cluster where only the preprocessed data is available)
-    from distutils.file_util import copy_file
+    # from distutils.file_util import copy_file
+    # maybe_mkdir_p(join(nnUNet_preprocessed, dataset_name, 'gt_segmentations'))
+    # dataset_json = load_json(join(nnUNet_raw, dataset_name, 'dataset.json'))
+    # dataset = get_filenames_of_train_images_and_targets(join(nnUNet_raw, dataset_name), dataset_json)
+    # # only copy files that are newer than the ones already present
+    # for k in dataset:
+    #     copy_file(dataset[k]['label'],
+    #               join(nnUNet_preprocessed, dataset_name, 'gt_segmentations', k + dataset_json['file_ending']),
+    #               update=True)
+    
+    # distutils removed in python3.12, so rewrite this logic with shutil package
+    import os
+    from os.path import join
+    import shutil
+
     maybe_mkdir_p(join(nnUNet_preprocessed, dataset_name, 'gt_segmentations'))
     dataset_json = load_json(join(nnUNet_raw, dataset_name, 'dataset.json'))
     dataset = get_filenames_of_train_images_and_targets(join(nnUNet_raw, dataset_name), dataset_json)
+
     # only copy files that are newer than the ones already present
     for k in dataset:
-        copy_file(dataset[k]['label'],
-                  join(nnUNet_preprocessed, dataset_name, 'gt_segmentations', k + dataset_json['file_ending']),
-                  update=True)
+        src = dataset[k]['label']
+        dst = join(nnUNet_preprocessed, dataset_name, 'gt_segmentations', k + dataset_json['file_ending'])
+        if not os.path.exists(dst) or os.path.getmtime(src) > os.path.getmtime(dst):
+            shutil.copy2(src, dst)
         
 def preprocess_dataset(dataset_id: int,
                        plans_identifier: str = 'nnUNetPlans',
@@ -176,15 +192,31 @@ def preprocess_dataset(dataset_id: int,
 
     # copy the gt to a folder in the nnUNet_preprocessed so that we can do validation even if the raw data is no
     # longer there (useful for compute cluster where only the preprocessed data is available)
-    from distutils.file_util import copy_file
+    # from distutils.file_util import copy_file
+    # maybe_mkdir_p(join(nnUNet_preprocessed, dataset_name, 'gt_segmentations'))
+    # dataset_json = load_json(join(nnUNet_raw, dataset_name, 'dataset.json'))
+    # dataset = get_filenames_of_train_images_and_targets(join(nnUNet_raw, dataset_name), dataset_json)
+    # # only copy files that are newer than the ones already present
+    # for k in dataset:
+    #     copy_file(dataset[k]['label'],
+    #               join(nnUNet_preprocessed, dataset_name, 'gt_segmentations', k + dataset_json['file_ending']),
+    #               update=True)
+
+    # distutils removed in python3.12, so rewrite this logic with shutil package
+    import os
+    from os.path import join
+    import shutil
+
     maybe_mkdir_p(join(nnUNet_preprocessed, dataset_name, 'gt_segmentations'))
     dataset_json = load_json(join(nnUNet_raw, dataset_name, 'dataset.json'))
     dataset = get_filenames_of_train_images_and_targets(join(nnUNet_raw, dataset_name), dataset_json)
+
     # only copy files that are newer than the ones already present
     for k in dataset:
-        copy_file(dataset[k]['label'],
-                  join(nnUNet_preprocessed, dataset_name, 'gt_segmentations', k + dataset_json['file_ending']),
-                  update=True)
+        src = dataset[k]['label']
+        dst = join(nnUNet_preprocessed, dataset_name, 'gt_segmentations', k + dataset_json['file_ending'])
+        if not os.path.exists(dst) or os.path.getmtime(src) > os.path.getmtime(dst):
+            shutil.copy2(src, dst)
 
 
 def preprocess(dataset_ids: List[int],

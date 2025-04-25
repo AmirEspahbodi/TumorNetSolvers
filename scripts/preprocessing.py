@@ -1,5 +1,7 @@
 import os
-from TumorNetSolvers.preprocessing.data_preprocessor import preparingDataset, create_json_file
+from src.TumorNetSolvers.preprocessing.data_preprocessor import preparingDataset, create_json_file
+from src.TumorNetSolvers.utils.paths import set_environment_variables
+from .config import AppConfig
 # =============================================
 # Overview:
 # This script prepares a tumor growth simulation dataset, specifically designed for use with the nnU-Net framework.
@@ -39,10 +41,10 @@ from TumorNetSolvers.preprocessing.data_preprocessor import preparingDataset, cr
 #└── dataset.json
 
 # =============================================
-
-id = 700  # Dataset ID (must be of form XXX)
+set_environment_variables()
+id = AppConfig.DATASET_ID  # Dataset ID (must be of form XXX)
 anatomical_struct = "Brain"  # Anatomical structure (e.g., Brain)
-mount_dir = "/mnt/Drive3/jonas_zeineb/data_and_outputs"  
+mount_dir = AppConfig.PAMOUNT_DIR
 crop_sz = 120  # Crop size for the images
 downsample_sz = 64  # Downsample size for the images
 start, stop = 0, 9  # Range of patients to process (e.g., from patient 0 to patient 9)
@@ -54,10 +56,10 @@ for sub_dir in sub_dirs:
     os.makedirs(os.path.join(mount_dir, sub_dir), exist_ok=True)
 
 # Prepare the dataset by processing patients
-param_dict = preparingDataset(id, mount_dir, anatomical_struct, start=start, stop=stop, crop_sz=crop_sz, downsample_sz=downsample_sz)
+# param_dict = preparingDataset(id, mount_dir, anatomical_struct, start=start, stop=stop, crop_sz=crop_sz, downsample_sz=downsample_sz)
 
-raw_dataset_path = os.path.join(mount_dir, 'raw_data', f'Dataset{id}_{anatomical_struct}')
-create_json_file(param_dict, raw_dataset_path, comment="Dataset for tumor growth simulation")
+# raw_dataset_path = os.path.join(mount_dir, 'raw_data', f'Dataset{id}_{anatomical_struct}')
+# create_json_file(param_dict, raw_dataset_path, comment="Dataset for tumor growth simulation")
 
 
 """
@@ -70,10 +72,14 @@ Steps:
 4. Preprocess the dataset.
 """
 
-from TumorNetSolvers.utils.paths import nnUNet_preprocessed, nnUNet_raw, nnUNet_results
-from TumorNetSolvers.reg_nnUNet.utilities.dataset_name_id_conversion import find_candidate_datasets, maybe_convert_to_dataset_name
-from TumorNetSolvers.reg_nnUNet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
-from TumorNetSolvers.reg_nnUNet.experiment_planning.plan_and_preprocess_api import plan_experiment_dataset, preprocess_dataset, preprocess_dataset2
+# from src.TumorNetSolvers.utils.paths import nnUNet_preprocessed, nnUNet_raw, nnUNet_results
+from src.TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import find_candidate_datasets, maybe_convert_to_dataset_name
+from src.TumorNetSolvers.reg_nnUnet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
+from src.TumorNetSolvers.reg_nnUnet.experiment_planning.plan_and_preprocess_api import plan_experiment_dataset, preprocess_dataset, preprocess_dataset2
+
+nnUNet_raw = os.path.join(mount_dir, "raw_data")
+nnUNet_preprocessed = os.path.join(mount_dir, "preprocessed_data")
+nnUNet_results = os.path.join(mount_dir, "results")
 
 #%% Step 1: Verify correct paths are set
 # You can print or log the paths for debugging purposes
@@ -81,10 +87,12 @@ print("Paths for nnUNet directories:")
 print(f"Preprocessed data: {nnUNet_preprocessed}")
 print(f"Raw data: {nnUNet_raw}")
 print(f"Results data: {nnUNet_results}")
+import os
+print(f"current directory: {os.getcwd()}")
 
 #%% Step 2: Dataset Fingerprint Extraction
 # Assuming dataset ID is defined (example ID: 600)
-dataset_id = 600
+dataset_id = AppConfig.DATASET_ID
 
 # Find candidate datasets and convert to dataset name
 print("Finding candidate datasets...")

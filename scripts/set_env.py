@@ -1,8 +1,8 @@
 # set_env.py
 import os
-
+from .config import AppConfig
 def set_environment_variables():
-    mount_dir = "/mnt/Drive3/jonas_zeineb/data_and_outputs"
+    mount_dir = AppConfig.PAMOUNT_DIR
 
     # Set environment variables
     os.environ['nnUNet_raw'] = os.path.join(mount_dir, "raw_data")

@@ -22,9 +22,9 @@ Outputs:
 # %% Performance Evaluation and Statistical Analysis
 import os
 from set_env import set_environment_variables
-from TumorNetSolvers.evaluation.eval_preds_folder import compute_metrics
-from TumorNetSolvers.evaluation.file_io import save_results_to_json
-from TumorNetSolvers.evaluation.statistics import compute_statistics_with_extremes
+from src.TumorNetSolvers.evaluation.eval_preds_folder import compute_metrics
+from src.TumorNetSolvers.evaluation.file_io import save_results_to_json
+from src.TumorNetSolvers.evaluation.statistics import compute_statistics_with_extremes
 set_environment_variables()
 
 # Define environment variables

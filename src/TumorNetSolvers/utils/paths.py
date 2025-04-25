@@ -31,9 +31,10 @@ if not all(os.environ.get(var) for var in path_dict.keys()):
 print("All paths and environment variables are set correctly.")
 """
 import os
+from scripts.config import AppConfig
 
 def set_environment_variables():
-    mount_dir = "/mnt/Drive3/jonas_zeineb/data_and_outputs"
+    mount_dir = AppConfig.PAMOUNT_DIR
 
     # Set environment variables
     os.environ['nnUNet_raw'] = os.path.join(mount_dir, "raw_data")

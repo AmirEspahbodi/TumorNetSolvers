@@ -30,30 +30,32 @@
 
 import os
 import torch
-from set_env import set_environment_variables
+from .set_env import set_environment_variables
+from .config import AppConfig
+
+
 set_environment_variables()
 nnUNet_preprocessed = os.getenv('nnUNet_preprocessed')
 nnUNet_raw = os.getenv('nnUNet_raw')
 nnUNet_results = os.getenv('nnUNet_results')
 print(nnUNet_preprocessed,nnUNet_raw,nnUNet_results)
 
-from TumorNetSolvers.preprocessing.data_preprocessor import preparingDataset, create_json_file
+from src.TumorNetSolvers.preprocessing.data_preprocessor import preparingDataset, create_json_file
 
-from TumorNetSolvers.reg_nnUNet.utilities.dataset_name_id_conversion import (
-    find_candidate_datasets, maybe_convert_to_dataset_name
-)
-from TumorNetSolvers.reg_nnUNet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
-from TumorNetSolvers.reg_nnUNet.experiment_planning.plan_and_preprocess_api import (
-    plan_experiment_dataset, preprocess_dataset
-)
+from src.TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import find_candidate_datasets, maybe_convert_to_dataset_name
+# from TumorNetSolvers.reg_nnUNet.utilities.dataset_name_id_conversion import (
+#     find_candidate_datasets, maybe_convert_to_dataset_name
+# )
+from src.TumorNetSolvers.reg_nnUnet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
+from src.TumorNetSolvers.reg_nnUnet.experiment_planning.plan_and_preprocess_api import plan_experiment_dataset, preprocess_dataset
 
 
 
 # ============ Data Preparation ============
 # Configuration
-DATASET_ID = 500  # Must be in XXX format
+DATASET_ID = AppConfig.DATASET_ID  # Must be in XXX format
 ANATOMICAL_STRUCTURE = "Brain"
-MOUNT_DIR = "/mnt/Drive3/jonas_zeineb/data_and_outputs"
+MOUNT_DIR = AppConfig.PAMOUNT_DIR
 CROP_SIZE = 120  # Image crop size
 DOWNSAMPLE_SIZE = 64  # Downsample size
 PATIENT_RANGE = (0, 3)  # Patients to process (start, stop)
@@ -64,24 +66,25 @@ for sub_dir in ['raw_data', 'preprocessed_data', 'results']:
     os.makedirs(os.path.join(MOUNT_DIR, sub_dir), exist_ok=True)
     os.makedirs(os.path.join(MOUNT_DIR, sub_dir,f'Dataset{DATASET_ID}_{ANATOMICAL_STRUCTURE}'), exist_ok=True)
     print(os.path.join(MOUNT_DIR, sub_dir,f'Dataset{DATASET_ID}_{ANATOMICAL_STRUCTURE}'))
+
 #%%
 # Process patient datasets
-print("Preparing dataset...")
-param_dict = preparingDataset(
-    DATASET_ID, MOUNT_DIR, ANATOMICAL_STRUCTURE,
-    start=PATIENT_RANGE[0], stop=PATIENT_RANGE[1],
-    crop_sz=CROP_SIZE, downsample_sz=DOWNSAMPLE_SIZE
-)
+# print("Preparing dataset...")
+# param_dict = preparingDataset(
+#     DATASET_ID, MOUNT_DIR, ANATOMICAL_STRUCTURE,
+#     start=PATIENT_RANGE[0], stop=PATIENT_RANGE[1],
+#     crop_sz=CROP_SIZE, downsample_sz=DOWNSAMPLE_SIZE
+# )
 
 
-#%%
-PP_DATASET_PATH=os.path.join(nnUNet_preprocessed, f'Dataset{DATASET_ID}_{ANATOMICAL_STRUCTURE}')
-pth=os.path.join(PP_DATASET_PATH, 'param_dict.pth')
-torch.save(param_dict, pth)
+# #%%
+# PP_DATASET_PATH=os.path.join(nnUNet_preprocessed, f'Dataset{DATASET_ID}_{ANATOMICAL_STRUCTURE}')
+# pth=os.path.join(PP_DATASET_PATH, 'param_dict.pth')
+# torch.save(param_dict, pth)
 # Create `dataset.json` for nnU-Net
-RAW_DATASET_PATH = os.path.join(MOUNT_DIR, 'raw_data', f'Dataset{DATASET_ID}_{ANATOMICAL_STRUCTURE}')
-create_json_file(param_dict, RAW_DATASET_PATH, comment="Dataset for tumor growth simulation")
-print("Dataset preparation complete.")
+# RAW_DATASET_PATH = os.path.join(MOUNT_DIR, 'raw_data', f'Dataset{DATASET_ID}_{ANATOMICAL_STRUCTURE}')
+# create_json_file(param_dict, RAW_DATASET_PATH, comment="Dataset for tumor growth simulation")
+# print("Dataset preparation complete.")
 #%%
 # ============ Fingerprint Extraction ============
 

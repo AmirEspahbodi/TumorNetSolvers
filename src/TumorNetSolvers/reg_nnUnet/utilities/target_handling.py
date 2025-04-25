@@ -8,7 +8,7 @@ from time import time
 from typing import Union, List, Tuple, Type
 import torch
 from typing import TYPE_CHECKING
-import numpy
+import numpy as np
 
 class RegressionManager(object):
     def __init__(self, inference_nonlin=None, output_range: Tuple[float, float] = None):

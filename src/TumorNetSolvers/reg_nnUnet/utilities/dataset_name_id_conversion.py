@@ -16,18 +16,23 @@
 
 from typing import Union
 
-from reg_nnUnet.paths import nnUNet_preprocessed, nnUNet_raw, nnUNet_results
+from src.TumorNetSolvers.reg_nnUnet.paths import nnUNet_preprocessed, nnUNet_raw, nnUNet_results
 from batchgenerators.utilities.file_and_folder_operations import *
 import numpy as np
 
 
 def find_candidate_datasets(dataset_id: int):
+    print("start " * 10)
+    
     startswith = "Dataset%03.0d" % dataset_id
     if nnUNet_preprocessed is not None and isdir(nnUNet_preprocessed):
         candidates_preprocessed = subdirs(nnUNet_preprocessed, prefix=startswith, join=False)
     else:
         candidates_preprocessed = []
 
+    print(f"candidates_preprocessed = {candidates_preprocessed}")
+    print(f"startswith = {startswith}")
+    
     if nnUNet_raw is not None and isdir(nnUNet_raw):
         candidates_raw = subdirs(nnUNet_raw, prefix=startswith, join=False)
     else:
@@ -39,6 +44,9 @@ def find_candidate_datasets(dataset_id: int):
 
     all_candidates = candidates_preprocessed + candidates_raw + candidates_trained_models
     unique_candidates = np.unique(all_candidates)
+    
+    print("end " * 10)
+    
     return unique_candidates
 
 
