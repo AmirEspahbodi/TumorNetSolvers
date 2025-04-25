@@ -105,7 +105,7 @@ def setup_data():
 
     # --- 1. Download and Extract ZIP ---
     logging.info("--- Starting Dataset ZIP Download and Extraction ---")
-    if os.path.exists(paths["zip_extract"]) and os.listdir(paths["zip_extract"]):
+    if os.path.exists(paths["zip_extract"]) and os.listdir(paths["zip_extract"]) - ['gitkeep']:
          logging.warning(f"Extraction directory '{paths['zip_extract']}' already exists and is not empty. Skipping ZIP download and extraction.")
          zip_success = True # Assume success if already exists
     else:
