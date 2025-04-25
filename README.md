@@ -119,6 +119,10 @@ To get started with **TumorNetSolvers**, install it directly from GitHub by foll
     pip install .
     ```
 
+3. Dataset Setup:
+   ```bash
+   python ./scripts/setup_dataset.py zeinebH/TumorSimulation
+   ```
 ---
 
 ## Contributing
