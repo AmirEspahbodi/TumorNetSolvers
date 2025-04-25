@@ -13,7 +13,7 @@ ZIP_URL = "https://huggingface.co/datasets/zeinebH/TumorSimulations/resolve/main
 PTH_URL = "https://huggingface.co/datasets/zeinebH/TumorSimulations/resolve/main/param_dict.pth"
 
 BASE_DATA_DIR_REL = "data_and_outputs"  # Relative to repo root
-ZIP_EXTRACT_SUBDIR = "raw_data/Dataset800_Brain"
+ZIP_EXTRACT_SUBDIR = "raw_data"
 PTH_SAVE_SUBDIR = "preprocessed_data"
 
 # --- Logging Setup ---
