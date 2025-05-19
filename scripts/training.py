@@ -14,7 +14,7 @@ Outputs:
 #%%
 import os
 import torch
-from src.TumorNetSolvers.training.updating_trainer import Trainer
+from TumorNetSolvers.training.updating_trainer import Trainer
 from batchgenerators.utilities.file_and_folder_operations import load_json
 from set_env import set_environment_variables
 set_environment_variables()

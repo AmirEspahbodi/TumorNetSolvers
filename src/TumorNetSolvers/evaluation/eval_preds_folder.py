@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import torch
-from src.TumorNetSolvers.utils.metrics import compute_dice_score, compute_ssim
+from TumorNetSolvers.utils.metrics import compute_dice_score, compute_ssim
 
 
 def compute_metrics(preds_folder, gt_folder):

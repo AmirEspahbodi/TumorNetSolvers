@@ -17,8 +17,8 @@ import os
 from scripts.set_env import set_environment_variables
 set_environment_variables()
 
-from src.TumorNetSolvers.inference.inference_utils import get_settings_and_file_paths
-from src.TumorNetSolvers.inference.run_inference_NEWEST import run_inference
+from TumorNetSolvers.inference.inference_utils import get_settings_and_file_paths
+from TumorNetSolvers.inference.run_inference_NEWEST import run_inference
 import torch
 
 def main():

@@ -7,16 +7,16 @@ from typing import List, Type, Optional, Tuple, Union
 
 from batchgenerators.utilities.file_and_folder_operations import join, maybe_mkdir_p, load_json
 
-import src.TumorNetSolvers.reg_nnUnet
-from src.TumorNetSolvers.reg_nnUnet.configuration import default_num_processes
-from src.TumorNetSolvers.reg_nnUnet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
-from src.TumorNetSolvers.reg_nnUnet.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
-from src.TumorNetSolvers.reg_nnUnet.experiment_planning.verify_dataset_integrity import verify_dataset_integrity
-from src.TumorNetSolvers.reg_nnUnet.paths import nnUNet_raw, nnUNet_preprocessed
-from src.TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import convert_id_to_dataset_name
-from src.TumorNetSolvers.reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
-from src.TumorNetSolvers.reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
-from src.TumorNetSolvers.reg_nnUnet.utilities.utils import get_filenames_of_train_images_and_targets
+import TumorNetSolvers.reg_nnUnet
+from TumorNetSolvers.reg_nnUnet.configuration import default_num_processes
+from TumorNetSolvers.reg_nnUnet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
+from TumorNetSolvers.reg_nnUnet.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
+from TumorNetSolvers.reg_nnUnet.experiment_planning.verify_dataset_integrity import verify_dataset_integrity
+from TumorNetSolvers.reg_nnUnet.paths import nnUNet_raw, nnUNet_preprocessed
+from TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import convert_id_to_dataset_name
+from TumorNetSolvers.reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
+from TumorNetSolvers.reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
+from TumorNetSolvers.reg_nnUnet.utilities.utils import get_filenames_of_train_images_and_targets
 
 
 def extract_fingerprint_dataset(dataset_id: int,
@@ -44,7 +44,7 @@ def extract_fingerprints(dataset_ids: List[int], fingerprint_extractor_class_nam
     clean = False will not actually run this. This is just a switch for use with reg_nnUnet_plan_and_preprocess where
     we don't want to rerun fingerprint extraction every time.
     """
-    fingerprint_extractor_class = recursive_find_python_class(join(src.TumorNetSolvers.reg_nnUnet.__path__[0], "experiment_planning"),
+    fingerprint_extractor_class = recursive_find_python_class(join(TumorNetSolvers.reg_nnUnet.__path__[0], "experiment_planning"),
                                                               fingerprint_extractor_class_name,
                                                               current_module="reg_nnUnet.experiment_planning")
     for d in dataset_ids:
@@ -90,7 +90,7 @@ def plan_experiments(dataset_ids: List[int], experiment_planner_class_name: str 
               "Please consider using those instead! "
               "Read more here: https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/resenc_presets.md"
               "\n############################\n")
-    experiment_planner = recursive_find_python_class(join(src.TumorNetSolvers.reg_nnUnet.__path__[0], "experiment_planning"),
+    experiment_planner = recursive_find_python_class(join(TumorNetSolvers.reg_nnUnet.__path__[0], "experiment_planning"),
                                                      experiment_planner_class_name,
                                                      current_module="reg_nnUnet.experiment_planning")
     plans_identifier = None

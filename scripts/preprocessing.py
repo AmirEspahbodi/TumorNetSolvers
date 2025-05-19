@@ -1,6 +1,6 @@
 import os
-from src.TumorNetSolvers.preprocessing.data_preprocessor import preparingDataset, create_json_file
-from src.TumorNetSolvers.utils.paths import set_environment_variables
+from TumorNetSolvers.preprocessing.data_preprocessor import preparingDataset, create_json_file
+from TumorNetSolvers.utils.paths import set_environment_variables
 from .config import AppConfig
 # =============================================
 # Overview:
@@ -72,10 +72,10 @@ Steps:
 4. Preprocess the dataset.
 """
 
-# from src.TumorNetSolvers.utils.paths import nnUNet_preprocessed, nnUNet_raw, nnUNet_results
-from src.TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import find_candidate_datasets, maybe_convert_to_dataset_name
-from src.TumorNetSolvers.reg_nnUnet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
-from src.TumorNetSolvers.reg_nnUnet.experiment_planning.plan_and_preprocess_api import plan_experiment_dataset, preprocess_dataset, preprocess_dataset2
+# from TumorNetSolvers.utils.paths import nnUNet_preprocessed, nnUNet_raw, nnUNet_results
+from TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import find_candidate_datasets, maybe_convert_to_dataset_name
+from TumorNetSolvers.reg_nnUnet.experiment_planning.dataset_fingerprint.fingerprint_extractor import DatasetFingerprintExtractor
+from TumorNetSolvers.reg_nnUnet.experiment_planning.plan_and_preprocess_api import plan_experiment_dataset, preprocess_dataset, preprocess_dataset2
 
 nnUNet_raw = os.path.join(mount_dir, "raw_data")
 nnUNet_preprocessed = os.path.join(mount_dir, "preprocessed_data")

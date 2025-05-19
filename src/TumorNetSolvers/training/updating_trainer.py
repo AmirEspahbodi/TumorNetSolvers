@@ -20,29 +20,29 @@ from torch.amp import GradScaler
 from torch._dynamo import OptimizedModule
 from torch.optim.lr_scheduler import CosineAnnealingWarmRestarts
 
-from src.TumorNetSolvers.utils.metrics import EMA, compute_dice_score, compute_ssim
-from src.TumorNetSolvers.utils.train_val_split import train_val_test_split_size, train_val_test_split_ratio, train_val_test_split_fx
-from src.TumorNetSolvers.preprocessing.target_handling import RegressionManager
-from src.TumorNetSolvers.models.dynamic_Unets import get_network_from_plans_new
-from src.TumorNetSolvers.models.ViT import CombinedVisionTransformer3D
-from src.TumorNetSolvers.models.embeddings import PatchEmbed3D
-from src.TumorNetSolvers.models.tumor_surrogate_net import TumorSurrogate
+from TumorNetSolvers.utils.metrics import EMA, compute_dice_score, compute_ssim
+from TumorNetSolvers.utils.train_val_split import train_val_test_split_size, train_val_test_split_ratio, train_val_test_split_fx
+from TumorNetSolvers.preprocessing.target_handling import RegressionManager
+from TumorNetSolvers.models.dynamic_Unets import get_network_from_plans_new
+from TumorNetSolvers.models.ViT import CombinedVisionTransformer3D
+from TumorNetSolvers.models.embeddings import PatchEmbed3D
+from TumorNetSolvers.models.tumor_surrogate_net import TumorSurrogate
 
 
-from src.TumorNetSolvers.reg_nnUnet.training.loss.deep_supervision import DeepSupervisionWrapper
-from src.TumorNetSolvers.reg_nnUnet.training.lr_scheduler.polylr import PolyLRScheduler
-from src.TumorNetSolvers.reg_nnUnet.training.dataloading.nnunet_dataset import nnUNetDataset
-from src.TumorNetSolvers.reg_nnUnet.training.dataloading.data_loader_2d import nnUNetDataLoader2D
-from src.TumorNetSolvers.reg_nnUnet.training.dataloading.data_loader_3d import nnUNetDataLoader3D
-from src.TumorNetSolvers.reg_nnUnet.training.data_augmentation.reg_transforms import BasicTransform2, SpatialTransform2
-from src.TumorNetSolvers.reg_nnUnet.training.dataloading.utils import get_case_identifiers, unpack_dataset
-from src.TumorNetSolvers.reg_nnUnet.training.data_augmentation.compute_initial_patch_size import get_patch_size
-from src.TumorNetSolvers.reg_nnUnet.training.logging.nnunet_logger import nnUNetLogger
-from src.TumorNetSolvers.reg_nnUnet.utilities.default_n_proc_DA import get_allowed_n_proc_DA
-from src.TumorNetSolvers.reg_nnUnet.utilities.collate_outputs import collate_outputs
-from src.TumorNetSolvers.reg_nnUnet.utilities.helpers import empty_cache, dummy_context
-from src.TumorNetSolvers.reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
-from src.TumorNetSolvers.reg_nnUnet.configuration import ANISO_THRESHOLD
+from TumorNetSolvers.reg_nnUnet.training.loss.deep_supervision import DeepSupervisionWrapper
+from TumorNetSolvers.reg_nnUnet.training.lr_scheduler.polylr import PolyLRScheduler
+from TumorNetSolvers.reg_nnUnet.training.dataloading.nnunet_dataset import nnUNetDataset
+from TumorNetSolvers.reg_nnUnet.training.dataloading.data_loader_2d import nnUNetDataLoader2D
+from TumorNetSolvers.reg_nnUnet.training.dataloading.data_loader_3d import nnUNetDataLoader3D
+from TumorNetSolvers.reg_nnUnet.training.data_augmentation.reg_transforms import BasicTransform2, SpatialTransform2
+from TumorNetSolvers.reg_nnUnet.training.dataloading.utils import get_case_identifiers, unpack_dataset
+from TumorNetSolvers.reg_nnUnet.training.data_augmentation.compute_initial_patch_size import get_patch_size
+from TumorNetSolvers.reg_nnUnet.training.logging.nnunet_logger import nnUNetLogger
+from TumorNetSolvers.reg_nnUnet.utilities.default_n_proc_DA import get_allowed_n_proc_DA
+from TumorNetSolvers.reg_nnUnet.utilities.collate_outputs import collate_outputs
+from TumorNetSolvers.reg_nnUnet.utilities.helpers import empty_cache, dummy_context
+from TumorNetSolvers.reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
+from TumorNetSolvers.reg_nnUnet.configuration import ANISO_THRESHOLD
 
 
 from batchgenerators.utilities.file_and_folder_operations import join, maybe_mkdir_p, save_json, isfile, load_json
@@ -54,7 +54,7 @@ from batchgeneratorsv2.transforms.utils.nnunet_masking import MaskImageTransform
 from batchgeneratorsv2.transforms.utils.compose import ComposeTransforms
 from batchgeneratorsv2.transforms.utils.deep_supervision_downsampling import DownsampleSegForDSTransform
 from batchgeneratorsv2.helpers.scalar_type import RandomScalar
-from src.TumorNetSolvers.utils.paths import set_environment_variables
+from TumorNetSolvers.utils.paths import set_environment_variables
 set_environment_variables()
 nnUNet_preprocessed = os.environ.get('nnUNet_preprocessed')
 nnUNet_results = os.environ.get('nnUNet_results')

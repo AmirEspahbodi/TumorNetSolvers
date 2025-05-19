@@ -6,7 +6,7 @@ import pydoc
 import warnings
 from typing import Union
 
-from src.TumorNetSolvers.reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
+from TumorNetSolvers.reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
 from batchgenerators.utilities.file_and_folder_operations import join
 
 #this function is slightly modified from nnUnet.utilities.get_network_from_plans

@@ -11,7 +11,7 @@ from datetime import datetime
 from time import time, sleep
 from typing import Tuple, Union, List
 import sys
-from src.TumorNetSolvers.utils.metrics import compute_dice_score
+from TumorNetSolvers.utils.metrics import compute_dice_score
 import wandb
 import numpy as np
 import torch
