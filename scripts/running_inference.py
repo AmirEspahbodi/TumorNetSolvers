@@ -14,7 +14,7 @@ Outputs:
 """
 #%%
 import os
-from set_env import set_environment_variables
+from src.set_env import set_environment_variables
 set_environment_variables()
 
 from src.TumorNetSolvers.inference.inference_utils import get_settings_and_file_paths
