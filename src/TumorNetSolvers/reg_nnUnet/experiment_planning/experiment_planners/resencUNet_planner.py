@@ -8,9 +8,9 @@ from dynamic_network_architectures.architectures.unet import ResidualEncoderUNet
 from dynamic_network_architectures.building_blocks.helper import convert_dim_to_conv_op, get_matching_instancenorm
 from torch import nn
 
-from reg_nnUnet.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
+from TumorNetSolvers.reg_nnUnet.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
 
-from reg_nnUnet.experiment_planning.experiment_planners.network_topology import get_pool_and_conv_props
+from TumorNetSolvers.reg_nnUnet.experiment_planning.experiment_planners.network_topology import get_pool_and_conv_props
 
 
 class ResEncUNetPlanner(ExperimentPlanner):

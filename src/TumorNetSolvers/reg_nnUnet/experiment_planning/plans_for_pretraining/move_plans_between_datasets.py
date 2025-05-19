@@ -4,11 +4,11 @@ from typing import Union
 
 from batchgenerators.utilities.file_and_folder_operations import join, isdir, isfile, load_json, subfiles, save_json
 
-from reg_nnUnet.imageio.reader_writer_registry import determine_reader_writer_from_dataset_json
-from reg_nnUnet.paths import nnUNet_preprocessed, nnUNet_raw
-from reg_nnUnet.utilities.file_path_utilities import maybe_convert_to_dataset_name
-from reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
-from reg_nnUnet.utilities.utils import get_filenames_of_train_images_and_targets
+from TumorNetSolvers.reg_nnUnet.imageio.reader_writer_registry import determine_reader_writer_from_dataset_json
+from TumorNetSolvers.reg_nnUnet.paths import nnUNet_preprocessed, nnUNet_raw
+from TumorNetSolvers.reg_nnUnet.utilities.file_path_utilities import maybe_convert_to_dataset_name
+from TumorNetSolvers.reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
+from TumorNetSolvers.reg_nnUnet.utilities.utils import get_filenames_of_train_images_and_targets
 
 
 def move_plans_between_datasets(

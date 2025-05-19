@@ -20,7 +20,7 @@ from batchgenerators.dataloading.nondet_multi_threaded_augmenter import NonDetMu
 from batchgenerators.dataloading.single_threaded_augmenter import SingleThreadedAugmenter
 from batchgenerators.utilities.file_and_folder_operations import join, load_json, isfile, save_json, maybe_mkdir_p
 from batchgeneratorsv2.helpers.scalar_type import RandomScalar
-from reg_nnUnet.training.data_augmentation.reg_transforms import BasicTransform2, SpatialTransform2
+from TumorNetSolvers.reg_nnUnet.training.data_augmentation.reg_transforms import BasicTransform2, SpatialTransform2
 from batchgeneratorsv2.transforms.intensity.brightness import MultiplicativeBrightnessTransform
 from batchgeneratorsv2.transforms.intensity.contrast import ContrastTransform, BGContrast
 from batchgeneratorsv2.transforms.intensity.gamma import GammaTransform
@@ -44,26 +44,26 @@ from torch.amp import GradScaler
 
 from torch.nn.parallel import DistributedDataParallel as DDP
 
-from reg_nnUnet.configuration import ANISO_THRESHOLD, default_num_processes
-#from reg_nnUnet.evaluation.evaluate_predictions import compute_metrics_on_folder
+from TumorNetSolvers.reg_nnUnet.configuration import ANISO_THRESHOLD, default_num_processes
+#from TumorNetSolvers.reg_nnUnet.evaluation.evaluate_predictions import compute_metrics_on_folder
 
-from reg_nnUnet.paths import nnUNet_preprocessed, nnUNet_results
-from reg_nnUnet.training.data_augmentation.compute_initial_patch_size import get_patch_size
-from reg_nnUnet.training.dataloading.data_loader_2d import nnUNetDataLoader2D
-from reg_nnUnet.training.dataloading.data_loader_3d import nnUNetDataLoader3D
-from reg_nnUnet.training.dataloading.nnunet_dataset import nnUNetDataset
-from reg_nnUnet.training.dataloading.utils import get_case_identifiers, unpack_dataset
-from reg_nnUnet.training.logging.nnunet_logger import nnUNetLogger
-from reg_nnUnet.training.loss.deep_supervision import DeepSupervisionWrapper
-from reg_nnUnet.training.lr_scheduler.polylr import PolyLRScheduler
-from reg_nnUnet.utilities.collate_outputs import collate_outputs
-from reg_nnUnet.utilities.crossval_split import generate_crossval_split
-from reg_nnUnet.utilities.default_n_proc_DA import get_allowed_n_proc_DA
-from reg_nnUnet.utilities.file_path_utilities import check_workers_alive_and_busy
-from reg_nnUnet.utilities.helpers import empty_cache, dummy_context
-from reg_nnUnet.utilities.target_handling import  RegressionManager
-from reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
-from reg_nnUnet.training.nnUNetTrainer.net import get_network_from_plans_new
+from TumorNetSolvers.reg_nnUnet.paths import nnUNet_preprocessed, nnUNet_results
+from TumorNetSolvers.reg_nnUnet.training.data_augmentation.compute_initial_patch_size import get_patch_size
+from TumorNetSolvers.reg_nnUnet.training.dataloading.data_loader_2d import nnUNetDataLoader2D
+from TumorNetSolvers.reg_nnUnet.training.dataloading.data_loader_3d import nnUNetDataLoader3D
+from TumorNetSolvers.reg_nnUnet.training.dataloading.nnunet_dataset import nnUNetDataset
+from TumorNetSolvers.reg_nnUnet.training.dataloading.utils import get_case_identifiers, unpack_dataset
+from TumorNetSolvers.reg_nnUnet.training.logging.nnunet_logger import nnUNetLogger
+from TumorNetSolvers.reg_nnUnet.training.loss.deep_supervision import DeepSupervisionWrapper
+from TumorNetSolvers.reg_nnUnet.training.lr_scheduler.polylr import PolyLRScheduler
+from TumorNetSolvers.reg_nnUnet.utilities.collate_outputs import collate_outputs
+from TumorNetSolvers.reg_nnUnet.utilities.crossval_split import generate_crossval_split
+from TumorNetSolvers.reg_nnUnet.utilities.default_n_proc_DA import get_allowed_n_proc_DA
+from TumorNetSolvers.reg_nnUnet.utilities.file_path_utilities import check_workers_alive_and_busy
+from TumorNetSolvers.reg_nnUnet.utilities.helpers import empty_cache, dummy_context
+from TumorNetSolvers.reg_nnUnet.utilities.target_handling import  RegressionManager
+from TumorNetSolvers.reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
+from TumorNetSolvers.reg_nnUnet.training.nnUNetTrainer.net import get_network_from_plans_new
 import torch.nn as nn
 
 class EMA:

@@ -17,7 +17,7 @@ from batchgenerators.utilities.file_and_folder_operations import load_json, join
 
 from TumorNetSolvers.reg_nnUnet.imageio.reader_writer_registry import recursive_find_reader_writer_by_name
 from TumorNetSolvers.reg_nnUnet.utilities.find_class_by_name import recursive_find_python_class
-#from reg_nnUnet.utilities.label_handling.target_handling import get_labelmanager_class_from_plans
+#from TumorNetSolvers.reg_nnUnet.utilities.label_handling.target_handling import get_labelmanager_class_from_plans
 
 # see https://adamj.eu/tech/2021/05/13/python-type-hints-how-to-fix-circular-imports/
 from typing import TYPE_CHECKING

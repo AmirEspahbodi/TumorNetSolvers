@@ -5,9 +5,9 @@ from typing import Union, Tuple
 import numpy as np
 from batchgenerators.utilities.file_and_folder_operations import *
 
-from reg_nnUnet.configuration import default_num_processes
-from reg_nnUnet.paths import nnUNet_results
-from reg_nnUnet.utilities.dataset_name_id_conversion import maybe_convert_to_dataset_name
+from TumorNetSolvers.reg_nnUnet.configuration import default_num_processes
+from TumorNetSolvers.reg_nnUnet.paths import nnUNet_results
+from TumorNetSolvers.reg_nnUnet.utilities.dataset_name_id_conversion import maybe_convert_to_dataset_name
 
 
 def convert_trainer_plans_config_to_identifier(trainer_name, plans_identifier, configuration):

@@ -9,9 +9,9 @@ import torch
 from einops import rearrange
 from torch.nn import functional as F
 
-from reg_nnUnet.configuration import ANISO_THRESHOLD
-from reg_nnUnet.imageio.simpleitk_reader_writer import SimpleITKIO
-from reg_nnUnet.preprocessing.resampling.default_resampling import determine_do_sep_z_and_axis
+from TumorNetSolvers.reg_nnUnet.configuration import ANISO_THRESHOLD
+from TumorNetSolvers.reg_nnUnet.imageio.simpleitk_reader_writer import SimpleITKIO
+from TumorNetSolvers.reg_nnUnet.preprocessing.resampling.default_resampling import determine_do_sep_z_and_axis
 
 
 def resample_torch_simple(

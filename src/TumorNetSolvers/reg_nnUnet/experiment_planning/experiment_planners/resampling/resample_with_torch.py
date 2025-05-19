@@ -4,11 +4,11 @@
 
 
 from typing import Union, List, Tuple
-from reg_nnUnet.configuration import ANISO_THRESHOLD
-from reg_nnUnet.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
-from reg_nnUnet.experiment_planning.experiment_planners.residual_unets.residual_encoder_unet_planners import \
+from TumorNetSolvers.reg_nnUnet.configuration import ANISO_THRESHOLD
+from TumorNetSolvers.reg_nnUnet.experiment_planning.experiment_planners.default_experiment_planner import ExperimentPlanner
+from TumorNetSolvers.reg_nnUnet.experiment_planning.experiment_planners.residual_unets.residual_encoder_unet_planners import \
     nnUNetPlannerResEncL
-from reg_nnUnet.preprocessing.resampling.resample_torch import resample_torch_fornnunet
+from TumorNetSolvers.reg_nnUnet.preprocessing.resampling.resample_torch import resample_torch_fornnunet
 
 
 class nnUNetPlannerResEncL_torchres(nnUNetPlannerResEncL):
