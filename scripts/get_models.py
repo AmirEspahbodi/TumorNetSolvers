@@ -39,7 +39,7 @@ FILES_TO_DOWNLOAD = [
     }
 ]
 
-DOWNLOAD_DIR = "/kaggle/working/TumorNetSolvers/final_models"
+DOWNLOAD_DIR = "/content/TumorNetSolvers/final_models"
 
 
 
