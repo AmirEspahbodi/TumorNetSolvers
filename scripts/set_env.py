@@ -1,6 +1,6 @@
 # set_env.py
 import os
-from scripts.config import AppConfig
+from config import AppConfig
 def set_environment_variables():
     mount_dir = AppConfig.PAMOUNT_DIR
 
