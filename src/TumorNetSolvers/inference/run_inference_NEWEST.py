@@ -2,8 +2,8 @@ import os
 import numpy as np
 import torch
 from torch.utils.data import  DataLoader
-from TumorNetSolvers.inference.inference_manager import InferenceManager
-from TumorNetSolvers.inference.inference_utils import CustomDataset, get_settings_and_file_paths
+from src.TumorNetSolvers.inference.inference_manager import InferenceManager
+from src.TumorNetSolvers.inference.inference_utils import CustomDataset, get_settings_and_file_paths
 
 nnUNet_preprocessed = os.environ.get('nnUNet_preprocessed')
 nnUNet_results = os.environ.get('nnUNet_results')

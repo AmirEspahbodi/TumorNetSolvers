@@ -5,11 +5,11 @@ from typing import Tuple, Union, List
 from torch._dynamo import OptimizedModule    
 
 from reg_nnUnet.utilities.plans_handling.plans_handler import PlansManager
-from TumorNetSolvers.preprocessing.target_handling import RegressionManager
-from TumorNetSolvers.models.tumor_surrogate_net import TumorSurrogate
-from TumorNetSolvers.models.ViT import CombinedVisionTransformer3D
-from TumorNetSolvers.models.embeddings import PatchEmbed3D
-from TumorNetSolvers.models.dynamic_Unets import get_network_from_plans_new
+from src.TumorNetSolvers.preprocessing.target_handling import RegressionManager
+from src.TumorNetSolvers.models.tumor_surrogate_net import TumorSurrogate
+from src.TumorNetSolvers.models.ViT import CombinedVisionTransformer3D
+from src.TumorNetSolvers.models.embeddings import PatchEmbed3D
+from src.TumorNetSolvers.models.dynamic_Unets import get_network_from_plans_new
 
 
 class InferenceManager:

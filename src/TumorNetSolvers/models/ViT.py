@@ -5,8 +5,8 @@ import torch
 from torch import nn
 from functools import partial
 from collections import OrderedDict
-from TumorNetSolvers.models.positional_encoding import get_3d_sincos_pos_embed
-from TumorNetSolvers.models.embeddings import ParameterEmbedding, traid, PatchEmbed3D
+from src.TumorNetSolvers.models.positional_encoding import get_3d_sincos_pos_embed
+from src.TumorNetSolvers.models.embeddings import ParameterEmbedding, traid, PatchEmbed3D
 
 
 class Attention(nn.Module):
