@@ -5,6 +5,7 @@ import logging
 import pathlib
 from tqdm import tqdm
 import sys
+from config import AppConfig
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,7 +40,7 @@ FILES_TO_DOWNLOAD = [
     }
 ]
 
-DOWNLOAD_DIR = "/content/TumorNetSolvers/final_models"
+DOWNLOAD_DIR = f"{AppConfig.BASE_DIR}/final_models"
 
 
 

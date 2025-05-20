@@ -178,15 +178,14 @@ def setup_data():
         logging.error("--- Dataset setup failed or was incomplete. Please check logs. ---")
 
     # --- 3. Copy dataset.json to preprocessed_data and data_and_outputs
+
     
-    AppConfig.PAMOUNT_DIR
-    
-    source_file = os.path.join(AppConfig.PAMOUNT_DIR, "data_and_outputs/raw_data/Dataset800_Brain/dataset.json")
+    source_file = os.path.join(AppConfig.BASE_DIR, "data_and_outputs/raw_data/Dataset800_Brain/dataset.json")
 
     # Define the destination paths
     destinations = [
-        os.path.join(AppConfig.PAMOUNT_DIR, "data_and_outputs/preprocessed_data/dataset.json"),
-        os.path.join(AppConfig.PAMOUNT_DIR, "data_and_outputs/dataset.json")
+        os.path.join(AppConfig.BASE_DIR, "data_and_outputs/preprocessed_data/dataset.json"),
+        os.path.join(AppConfig.BASE_DIR, "data_and_outputs/dataset.json")
     ]
 
     # Call the function to copy the file
