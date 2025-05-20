@@ -4,8 +4,10 @@ import os
 import requests
 import zipfile
 import logging
+import shutil
 from tqdm import tqdm
 import sys
+from config import AppConfig
 
 # --- Configuration ---
 # Use '/resolve/main/' for direct raw file downloads from Hugging Face
@@ -98,7 +100,31 @@ def extract_zip(zip_path: str, extract_to: str):
     except Exception as e:
         logging.error(f"Failed to extract {zip_path}: {e}")
         return False
+def copy_file_to_destinations(source_file_path, destination_paths):
+    """
+    Copies a source file to multiple destination paths.
 
+    Args:
+        source_file_path (str): The path to the source file.
+        destination_paths (list): A list of paths where the file should be copied.
+    """
+    if not os.path.exists(source_file_path):
+        print(f"Error: Source file '{source_file_path}' not found.")
+        return
+
+    for dest_path in destination_paths:
+        try:
+            # Create the destination directory if it doesn't exist
+            dest_dir = os.path.dirname(dest_path)
+            if dest_dir: # Ensure dest_dir is not an empty string (for files in current dir)
+                os.makedirs(dest_dir, exist_ok=True)
+
+            # Copy the file
+            shutil.copy2(source_file_path, dest_path)
+            print(f"Successfully copied '{source_file_path}' to '{dest_path}'")
+        except Exception as e:
+            print(f"Error copying file to '{dest_path}': {e}")
+            
 def setup_data():
     """Main function to download and set up dataset components."""
     paths = calculate_paths(__file__)
@@ -151,6 +177,20 @@ def setup_data():
     else:
         logging.error("--- Dataset setup failed or was incomplete. Please check logs. ---")
 
+    # --- 3. Copy dataset.json to preprocessed_data and data_and_outputs
+    
+    AppConfig.PAMOUNT_DIR
+    
+    source_file = os.path.join(AppConfig.PAMOUNT_DIR, "data_and_outputs/raw_data/Dataset800_Brain/dataset.json")
+
+    # Define the destination paths
+    destinations = [
+        os.path.join(AppConfig.PAMOUNT_DIR, "data_and_outputs/preprocessed_data/dataset.json"),
+        os.path.join(AppConfig.PAMOUNT_DIR, "data_and_outputs/dataset.json")
+    ]
+
+    # Call the function to copy the file
+    copy_file_to_destinations(source_file, destinations)
 
 if __name__ == "__main__":
     logging.info("Starting dataset setup script...")

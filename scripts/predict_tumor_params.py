@@ -14,7 +14,7 @@ The main steps involved are:
 
 The script processes only the first batch of the dataset in each run.
 Example usage:
-    DATASET_NAME = "Dataset500_Brain"
+    DATASET_NAME = "Dataset800_Brain"
     MODEL = "nnUnet"
     DATA_FOLDER = "/path/to/dataset"
     OUTPUT_BASE = "/path/to/output"
@@ -236,7 +236,7 @@ def infer_parameters(dataset_name: str, model: str, data_folder: str, output_bas
 
 
 if __name__=="__main__":
-    DATASET_NAME = "Dataset500_Brain"
+    DATASET_NAME = "Dataset800_Brain"
     MODEL = "nnUnet"  # Can also be 'ViT' or 'TumorSurrogate'
     DATA_FOLDER = os.path.join(nnUNet_preprocessed, DATASET_NAME,"nnUNetPlans_3d_fullres")
     OUTPUT_BASE = os.path.join(nnUNet_results, DATASET_NAME, 'infer_params')
@@ -244,7 +244,7 @@ if __name__=="__main__":
    
     DEVICE = torch.device('cuda:0')
     SIGNATURE = "experiment"  # Or any other identifier for your experiment
-    CHECKPOINT= "/mnt/Drive3/jonas_zeineb/data_and_outputs/results/Dataset700_Brain/Trainer__nnUNetPlans__3d_fullres/fold_train_val/_10k_2_nnUnet/checkpoint_nnUnet_best_ema_dice.pth"  #inputting checkpoint is optional, else it will look for checkpoint correspoding to same dataset and model (ie look for checkpoint for _nnUnet under results/dataset500_Brain folder)
+    CHECKPOINT= "/mnt/Drive3/jonas_zeineb/data_and_outputs/results/Dataset700_Brain/Trainer__nnUNetPlans__3d_fullres/fold_train_val/_10k_2_nnUnet/checkpoint_nnUnet_best_ema_dice.pth"  #inputting checkpoint is optional, else it will look for checkpoint correspoding to same dataset and model (ie look for checkpoint for _nnUnet under results/Dataset800_Brain folder)
     infer_parameters(DATASET_NAME, MODEL, DATA_FOLDER, OUTPUT_BASE, DEVICE, SIGNATURE, chkpt=CHECKPOINT)
 
 

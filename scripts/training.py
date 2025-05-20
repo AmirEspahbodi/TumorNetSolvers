@@ -23,7 +23,7 @@ nnUNet_preprocessed = os.getenv('nnUNet_preprocessed')
 # ============ Configuration ============
 
 # Define the dataset and training configuration
-DATASET_NAME = 'Dataset500_Brain'  
+DATASET_NAME = 'Dataset800_Brain'  
 TRAINING_CONFIGURATION = '3d_fullres'  # '2d', '3d_lowres', '3d_fullres', etc.
 DEVICE = torch.device('cuda:0')  
 

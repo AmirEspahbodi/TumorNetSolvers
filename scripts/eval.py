@@ -32,7 +32,7 @@ nnUNet_preprocessed = os.getenv('nnUNet_preprocessed')
 nnUNet_results = os.getenv('nnUNet_results')
 
 # Configuration
-DATASET_NAME = 'Dataset500_Brain' 
+DATASET_NAME = 'Dataset800_Brain' 
 MODELS = ['nnUnet']  # List of models for evaluation
 SIGNATURE = '10k'
 MASKED = False  # Binary flag for masked evaluation
