@@ -26,7 +26,7 @@ def main():
     nnUNet_results= os.getenv('nnUNet_results')
     # ============ Configuration ============
     DATASET_NAME = 'Dataset800_Brain'  # Specify the dataset name
-    MODELS = ['ViT',  'TumorSurrogate']  # Models to use for inference e.g. ['ViT', 'nnUnet', 'TumorSurrogate']
+    MODELS = ['ViT',  'TumorSurrogate',]  # Models to use for inference e.g. ['ViT', 'nnUnet', 'TumorSurrogate']
     DEVICE = torch.device('cuda:0')  
 
     # Paths
